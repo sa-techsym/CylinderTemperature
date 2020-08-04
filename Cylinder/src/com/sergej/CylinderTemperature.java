@@ -38,8 +38,8 @@ public class CylinderTemperature {
 		
 		_trigonometric_characteristic 
 				= solve(x -> {
-						double phase = Math.atan(x * _cylinder.heat_conduct() / .1); //_flow_heat_transfer);
-						return  x * _cylinder.heat_conduct() * Math.cos(x * _cylinder.length() + phase) + /*_envr_heat_transfer*/.1 
+						double phase = Math.atan(x * _cylinder.heat_conduct() / _envr_heat_transfer);
+						return  x * _cylinder.heat_conduct() * Math.cos(x * _cylinder.length() + phase) + _envr_heat_transfer 
 								* Math.sin(x * _cylinder.length() + phase); 
 								}
 						); 
@@ -62,7 +62,7 @@ public class CylinderTemperature {
 	private double _flow_heat_transfer, _envr_heat_transfer;
 	
 	private double n(double /*trigonometric*/ characteristic) {
-		double phase = Math.atan(characteristic * _cylinder.heat_conduct() / .1); //_envr_heat_transfer);
+		double phase = Math.atan(characteristic * _cylinder.heat_conduct() / _envr_heat_transfer);
 		return 
 				.5 * (_cylinder.length() - (Math.sin(characteristic * _cylinder.length() + phase) * Math.cos(characteristic 
 						* _cylinder.length() + phase) - Math.sin(phase) * Math.cos(phase)) / characteristic);
@@ -92,14 +92,14 @@ public class CylinderTemperature {
 		}
 	
 	private double s(double x, double /*trigonometric*/ characteristic) {
-		double phase = Math.atan(characteristic * _cylinder.heat_conduct() / .1);//_envr_heat_transfer);
+		double phase = Math.atan(characteristic * _cylinder.heat_conduct() / _envr_heat_transfer);
 		return Math.sin(characteristic * x + phase);
 		}
 	
 	private double v(double t, double bessel_characteristic, double trigonometric_characteristic) {
 		/* s(x) function integral from 0 to full temperature profile length */
 		double 
-			phase = Math.atan(trigonometric_characteristic * _cylinder.heat_conduct() / .1), //_envr_heat_transfer),
+			phase = Math.atan(trigonometric_characteristic * _cylinder.heat_conduct() / _envr_heat_transfer),
 			trigonometric_integral = (Math.cos(phase) - Math.cos(trigonometric_characteristic * _cylinder.length() + phase)) 
 					/ trigonometric_characteristic;
 		/*System.out.print(trigonometric_integral);
