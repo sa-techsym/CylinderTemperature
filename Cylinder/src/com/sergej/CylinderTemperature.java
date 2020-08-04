@@ -38,7 +38,7 @@ public class CylinderTemperature {
 		
 		_trigonometric_characteristic 
 				= solve(x -> {
-						double phase = Math.atan(x * _cylinder.heat_conduct() / _envr_heat_transfer);
+						double phase = Math.atan(x * _cylinder.heat_conduct() / _flow_heat_transfer);
 						return  x * _cylinder.heat_conduct() * Math.cos(x * _cylinder.length() + phase) + _envr_heat_transfer 
 								* Math.sin(x * _cylinder.length() + phase); 
 								}
@@ -92,7 +92,7 @@ public class CylinderTemperature {
 		}
 	
 	private double s(double x, double /*trigonometric*/ characteristic) {
-		double phase = Math.atan(x /*characteristic*/ * _cylinder.heat_conduct() / _envr_heat_transfer);
+		double phase = Math.atan(x /* characteristic */ * _cylinder.heat_conduct() / _envr_heat_transfer);
 		return Math.sin(characteristic * x + phase);
 		}
 	
